@@ -7,6 +7,9 @@ import screenshotJs from './vs-code-screenshot-js.png';
 /* eslint import/no-webpack-loader-syntax: off */
 import vsCodeDarkTheme from '!!file-loader!./prism-vsc-dark-plus.css';
 import vsCodeDarkThemeFixed from '!!file-loader!./prism-vsc-dark-plus-fixed.css';
+import jsCode from '!!raw-loader!./code.js';
+import cssCode from '!!raw-loader!./code.css';
+import htmlCode from '!!raw-loader!./code.html';
 
 require('prismjs/components/prism-css-extras');
 require('prismjs/components/prism-js-extras');
@@ -15,108 +18,15 @@ require('prismjs/components/prism-jsx');
 
 function App() {
   const [fixedCss, setFixedCss] = useState(false);
-  const htmlCode = Prism.highlight(
-    `<!DOCTYPE html>
-<head>
-  <meta charset="utf-8" />
-  <title>Title</title>
-  <style>body {width: 500px;}</style>
-</head>
+  const highlightedJs = Prism.highlight(jsCode, Prism.languages.jsx, 'jsx');
 
-<script type="application/javascript">
-  function $init() {return true;}
-</script>
+  const highlightedCss = Prism.highlight(cssCode, Prism.languages.css, 'css');
 
-<body>
-  &amp; &#x2665;
-  <![CDATA[
-    CDATA is <not> magical.
-  ]]>
-
-  <p checked class="title" id='title'>Title</p>
-  <!-- here goes the rest of the page -->
-</body>`,
+  const highlightedHtml = Prism.highlight(
+    htmlCode,
     Prism.languages.html,
     'html',
   );
-  const cssCode = Prism.highlight(
-    `@font-face {
-  font-family: Chunkfive; src: url('Chunkfive.otf');
-}
-
-body, .usertext {
-  color: #F0F0F0; background: #600;
-  font-family: Chunkfive, sans;
-  --heading-1: 30px/32px Helvetica, sans-serif;
-}
-
-@import url(print.css);
-@media print {
-  a[href^=http]::after {
-    content: attr(href)
-  }
-}`,
-    Prism.languages.css,
-    'css',
-  );
-
-  const code = Prism.highlight(
-    `import React, { useEffect } from 'react';
-function a(asdf) {
-  let b = 1;
-  console.log(a + b);
-  console.log(asdf);
-}
-a();
-
-const classes = [];
-const checkCondition = () => {};
-
-function $initHighlight(block, cls) {
-  try {
-    if (cls.search(/\\bno\\/highlight\\b/) !== -1)
-      return process(block, true, 0x0f) + \` class="\${cls}"\`;
-  } catch (e) {
-    /* handle exception */
-  }
-  for (var i = 0 / 2; i < classes.length; i++) {
-    if (checkCondition(classes[i]) === undefined) console.log('undefined');
-  }
-
-  return (
-    <div className="page-title">
-      <Label />
-      <web-component>{block}</web-component>
-    </div>
-  );
-}
-
-class Expire extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { component: props.children };
-  }
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        component: null,
-      });
-    }, this.props.time || this.props.seconds * 1000);
-  }
-  render() {
-    return this.state.component;
-  }
-}
-
-export { Expire, $initHighlight };
-
-function Label() {
-  useEffect();
-}`,
-    Prism.languages.jsx,
-    'jsx',
-  );
-  // Prism.highlightAll();
 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -148,7 +58,7 @@ function Label() {
         <pre
           className="language-jsx"
           dangerouslySetInnerHTML={{
-            __html: code,
+            __html: highlightedJs,
           }}
         />
         <br />
@@ -157,7 +67,7 @@ function Label() {
         <pre
           className="language-css"
           dangerouslySetInnerHTML={{
-            __html: cssCode,
+            __html: highlightedCss,
           }}
         />
         <br />
@@ -166,7 +76,7 @@ function Label() {
         <pre
           className="language-html"
           dangerouslySetInnerHTML={{
-            __html: htmlCode,
+            __html: highlightedHtml,
           }}
         />
       </div>
@@ -184,7 +94,7 @@ function Label() {
         </div>
         <img
           src={screenshotJs}
-          style={{ display: 'block', height: 1010 }}
+          style={{ marginTop: 20, display: 'block', height: 1010 }}
           alt=""
         />
         <img
