@@ -7,7 +7,6 @@ function a(asdf) {
 a();
 
 const classes = [];
-
 const checkCondition = () => {};
 
 function $initHighlight(block, cls) {
