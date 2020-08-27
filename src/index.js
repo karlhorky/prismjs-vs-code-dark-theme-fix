@@ -14,6 +14,7 @@ import htmlCode from '!!raw-loader!./code.html';
 require('prismjs/components/prism-css-extras');
 require('prismjs/components/prism-js-extras');
 require('prismjs/components/prism-js-templates');
+require('prismjs/components/prism-regex');
 require('prismjs/components/prism-jsx');
 
 function App() {
