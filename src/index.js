@@ -105,7 +105,7 @@ function App() {
         />
         <img
           src={screenshotHtml}
-          style={{ marginTop: 110, display: 'block', height: 392 }}
+          style={{ marginTop: 65, display: 'block', height: 392 }}
           alt=""
         />
       </div>
